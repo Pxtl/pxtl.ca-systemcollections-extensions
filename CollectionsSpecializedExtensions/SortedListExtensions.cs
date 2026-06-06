@@ -1,73 +1,97 @@
 namespace CollectionsSpecializedExtensions;
 
 /// <summary>
-/// Extension methods for <see cref="SortedList{TKey, TValue}"/>.
+/// Extension methods for <see cref="SortedList{TKey,TValue}"/>.
 /// </summary>
 /// <remarks>
-/// Provides LINQ-like extension methods to create <see cref="SortedList{TKey, TValue}"/> from
-/// enumerable sources with custom sorting comparers.
+/// Provides LINQ-like extension methods to create <see cref="SortedList{TKey,TValue}"/> from
+/// enumerable sources using custom selector functions and comparison.
 /// </remarks>
 public static class SortedListExtensions
 {
     /// <summary>
-    /// Creates a new <see cref="SortedList{TKey, TValue}"/> from an <see cref="IEnumerable{KeyValuePair{TKey, TValue}}"/> source.
+    /// Creates a new <see langword="SortedList"/> from an <see langword="IEnumerable"/> source.
     /// </summary>
-    /// <typeparam name="TKey">Type of keys.</typeparam>
-    /// <typeparam name="TValue">Type of values.</typeparam>
-    /// <param name="source">The enumerable source.</param>
-    /// <returns>A new <see cref="SortedList{TKey, TValue}"/> with the mapped data.</returns>
-    /// <exception cref="ArgumentNullException"><paramref name="source"/> is null.</exception>
+    /// <returns>A new <see langword="SortedList"/> with the mapped data.</returns>
+    /// <exception cref="ArgumentNullException"/>
     public static SortedList<TKey, TValue> ToSortedList<TKey, TValue>(
         this IEnumerable<KeyValuePair<TKey, TValue>> source)
         where TKey : notnull
     {
         ArgumentNullException.ThrowIfNull(source, nameof(source));
-
-        var list = new SortedList<TKey, TValue>();
-        foreach (var item in source)
-        {
-            list[item.Key] = item.Value;
-        }
-        return list;
+        return new SortedList<TKey, TValue>(source);
     }
 
     /// <summary>
-    /// Creates a new <see cref="SortedList{TKey, TValue}"/> from an <see cref="IEnumerable{KeyValuePair{TKey, TValue}}"/> source with a custom comparer.
+    /// Creates a new <see langword="SortedList"/> from an <see langword="IEnumerable"/> source.
     /// </summary>
-    /// <typeparam name="TKey">Type of keys.</typeparam>
-    /// <typeparam name="TValue">Type of values.</typeparam>
-    /// <param name="source">The enumerable source.</param>
-    /// <param name="comparer">The IComparer{TKey} for sorting keys.</param>
-    /// <returns>A new <see cref="SortedList{TKey, TValue}"/> with the mapped data.</returns>
-    /// <exception cref="ArgumentNullException"><paramref name="source"/> is null.</exception>
-    /// <exception cref="ArgumentNullException"><paramref name="comparer"/> is null.</exception>
+    /// <returns>A new <see langword="SortedList"/> with the mapped data.</returns>
+    /// <exception cref="ArgumentNullException"/>
     public static SortedList<TKey, TValue> ToSortedList<TKey, TValue>(
         this IEnumerable<KeyValuePair<TKey, TValue>> source,
-        IComparer<TKey> comparer)
+        IComparer<TKey> value)
         where TKey : notnull
     {
         ArgumentNullException.ThrowIfNull(source, nameof(source));
-        ArgumentNullException.ThrowIfNull(comparer, nameof(comparer));
+        ArgumentNullException.ThrowIfNull(source, nameof(value));
+        return new SortedList<TKey, TValue>(source, value);
+    }
 
-        var list = new SortedList<TKey, TValue>(comparer);
-        foreach (var item in source)
+    /// <summary>
+    /// Creates a new <see langword="SortedList"/> from an <see langword="IEnumerable"/>.
+    /// </summary>
+    /// <typeparam name="TSource">Type of elements in the source.</typeparam>
+    /// <typeparam name="TKey">Type of keys.</typeparam>
+    /// <returns>A new <see langword="SortedList"/> with the mapped data.</returns>
+    /// <exception cref="ArgumentNullException"/>
+    public static SortedList<TKey, TSource> ToSortedList<TKey, TSource>(
+        this IEnumerable<TSource> source,
+        Func<TSource, TKey> keySelector)
+        where TKey : notnull
+    {
+        ArgumentNullException.ThrowIfNull(source, nameof(source));
+        ArgumentNullException.ThrowIfNull(keySelector, nameof(keySelector));
+
+        var list = new SortedList<TKey, TSource>();
+        foreach (var element in source)
         {
-            list[item.Key] = item.Value;
+            list[keySelector(element)] = element;
         }
         return list;
     }
 
     /// <summary>
-    /// Creates a new <see cref="SortedList{TKey, TValue}"/> from an <see cref="IEnumerable{T}"/> source using key and value selectors.
+    /// Creates a new <see langword="SortedList"/> from an <see langword="IEnumerable"/>.
     /// </summary>
     /// <typeparam name="TSource">Type of elements in the source.</typeparam>
     /// <typeparam name="TKey">Type of keys.</typeparam>
-    /// <typeparam name="TValue">Type of values.</typeparam>
-    /// <param name="source">The enumerable source.</param>
-    /// <param name="keySelector">The key selector function.</param>
-    /// <param name="valueSelector">The value selector function.</param>
-    /// <returns>A new <see cref="SortedList{TKey, TValue}"/> with the mapped data.</returns>
-    /// <exception cref="ArgumentNullException"><paramref name="source"/> or <paramref name="keySelector"/> or <paramref name="valueSelector"/> is null.</exception>
+    /// <returns>A new <see langword="SortedList"/> with the mapped data.</returns>
+    /// <exception cref="ArgumentNullException"/>
+    public static SortedList<TKey, TSource> ToSortedList<TKey, TSource>(
+        this IEnumerable<TSource> source,
+        Func<TSource, TKey> keySelector,
+        IComparer<TKey> value)
+        where TKey : notnull
+    {
+        ArgumentNullException.ThrowIfNull(source, nameof(source));
+        ArgumentNullException.ThrowIfNull(keySelector, nameof(keySelector));
+        ArgumentNullException.ThrowIfNull(source, nameof(value));
+
+        var list = new SortedList<TKey, TSource>(value);
+        foreach (var element in source)
+        {
+            list[keySelector(element)] = element;
+        }
+        return list;
+    }
+
+    /// <summary>
+    /// Creates a new <see langword="SortedList"/> with key and value selectors.
+    /// </summary>
+    /// <returns>A new <see langword="SortedList"/> with the key-selector and value-selector mapped data.</returns>
+    /// <exception cref="ArgumentNullException"/>
+    /// <param name="keySelector">A selector for keys.</param>
+    /// <param name="valueSelector">A selector for values.</param>
     public static SortedList<TKey, TValue> ToSortedList<TSource, TKey, TValue>(
         this IEnumerable<TSource> source,
         Func<TSource, TKey> keySelector,
@@ -81,39 +105,78 @@ public static class SortedListExtensions
         var list = new SortedList<TKey, TValue>();
         foreach (var element in source)
         {
-            list[keySelector(element)] = valueSelector(element);
+            var key = keySelector(element);
+            var value = valueSelector(element);
+            list[key] = value;
         }
         return list;
     }
 
     /// <summary>
-    /// Creates a new <see cref="SortedList{TKey, TValue}"/> from an <see cref="IEnumerable{T}"/> source using key and value selectors with a custom comparer.
+    /// Creates a new <see langword="SortedList"/> with key and value selectors.
     /// </summary>
-    /// <typeparam name="TSource">Type of elements in the source.</typeparam>
-    /// <typeparam name="TKey">Type of keys.</typeparam>
-    /// <typeparam name="TValue">Type of values.</typeparam>
-    /// <param name="source">The enumerable source.</param>
-    /// <param name="keySelector">The key selector function.</param>
-    /// <param name="valueSelector">The value selector function.</param>
-    /// <param name="comparer">The IComparer{TKey} for sorting keys.</param>
-    /// <returns>A new <see cref="SortedList{TKey, TValue}"/> with the mapped data.</returns>
-    /// <exception cref="ArgumentNullException"><paramref name="source"/> or <paramref name="keySelector"/> or <paramref name="valueSelector"/> or <paramref name="comparer"/> is null.</exception>
+    /// <returns>A new <see langword="SortedList"/> with the key-selector and value-selector mapped data.</returns>
+    /// <exception cref="ArgumentNullException"/>
+    /// <param name="keySelector">A selector for keys.</param>
+    /// <param name="valueSelector">A selector for values.</param>
     public static SortedList<TKey, TValue> ToSortedList<TSource, TKey, TValue>(
         this IEnumerable<TSource> source,
         Func<TSource, TKey> keySelector,
         Func<TSource, TValue> valueSelector,
-        IComparer<TKey> comparer)
+        IComparer<TKey> value)
         where TKey : notnull
     {
         ArgumentNullException.ThrowIfNull(source, nameof(source));
         ArgumentNullException.ThrowIfNull(keySelector, nameof(keySelector));
         ArgumentNullException.ThrowIfNull(valueSelector, nameof(valueSelector));
-        ArgumentNullException.ThrowIfNull(comparer, nameof(comparer));
+        ArgumentNullException.ThrowIfNull(source, nameof(value));
 
-        var list = new SortedList<TKey, TValue>(comparer);
+        var list = new SortedList<TKey, TValue>(value);
         foreach (var element in source)
         {
-            list[keySelector(element)] = valueSelector(element);
+            var key = keySelector(element);
+            var value = valueSelector(element);
+            list[key] = value;
+        }
+        return list;
+    }
+
+    /// <summary>
+    /// Creates a new <see langword="SortedList"/> from an <see langword="IEnumerable"/> of tuples.
+    /// </summary>
+    /// <returns>A new <see langword="SortedList"/> with the mapped data.</returns>
+    /// <exception cref="ArgumentNullException">The <paramref name="source"/> is null.</exception>
+    public static SortedList<TKey, TValue> ToSortedList<TKey, TValue>(
+        this IEnumerable<(TKey, TValue)> source)
+        where TKey : notnull
+    {
+        ArgumentNullException.ThrowIfNull(source, nameof(source));
+
+        var list = new SortedList<TKey, TValue>();
+        foreach (var (item1, item2) in source)
+        {
+            list[item1] = item2;
+        }
+        return list;
+    }
+
+    /// <summary>
+    /// Creates a new <see langword="SortedList"/> from an <see langword="IEnumerable"/> of tuples.
+    /// </summary>
+    /// <returns>A new <see langword="SortedList"/> with the mapped data.</returns>
+    /// <exception cref="ArgumentNullException">The <paramref name="source"/> is null.</exception>
+    public static SortedList<TKey, TValue> ToSortedList<TKey, TValue>(
+        this IEnumerable<(TKey, TValue)> source,
+        IComparer<TKey> value)
+        where TKey : notnull
+    {
+        ArgumentNullException.ThrowIfNull(source, nameof(source));
+        ArgumentNullException.ThrowIfNull(source, nameof(value));
+
+        var list = new SortedList<TKey, TValue>(value);
+        foreach (var (item1, item2) in source)
+        {
+            list[item1] = item2;
         }
         return list;
     }
