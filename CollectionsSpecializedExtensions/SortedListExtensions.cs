@@ -22,7 +22,7 @@ public static class SortedListExtensions
         where TKey : notnull
     {
         ArgumentNullException.ThrowIfNull(source, nameof(source));
-        ArgumentNullException.ThrowIfNull(source, nameof(comparer));
+        ArgumentNullException.ThrowIfNull(comparer, nameof(comparer));
         var sortedList = new SortedList<TKey, TValue>(comparer);
         foreach (var item in source)
         {
@@ -68,7 +68,7 @@ public static class SortedListExtensions
     {
         ArgumentNullException.ThrowIfNull(source, nameof(source));
         ArgumentNullException.ThrowIfNull(keySelector, nameof(keySelector));
-        ArgumentNullException.ThrowIfNull(source, nameof(comparer));
+        ArgumentNullException.ThrowIfNull(comparer, nameof(comparer));
         var sortedList = new SortedList<TKey, TSource>(comparer);
         foreach (var element in source)
         {
@@ -120,7 +120,7 @@ public static class SortedListExtensions
         ArgumentNullException.ThrowIfNull(source, nameof(source));
         ArgumentNullException.ThrowIfNull(keySelector, nameof(keySelector));
         ArgumentNullException.ThrowIfNull(valueSelector, nameof(valueSelector));
-        ArgumentNullException.ThrowIfNull(source, nameof(comparer));
+        ArgumentNullException.ThrowIfNull(comparer, nameof(comparer));
         var sortedList = new SortedList<TKey, TValue>(comparer);
         foreach (var element in source)
         {
@@ -171,7 +171,7 @@ public static class SortedListExtensions
         where TKey : notnull
     {
         ArgumentNullException.ThrowIfNull(source, nameof(source));
-        ArgumentNullException.ThrowIfNull(source, nameof(comparer));
+        ArgumentNullException.ThrowIfNull(comparer, nameof(comparer));
         var sortedList = new SortedList<TKey, TValue>(comparer);
         foreach (var (key, value) in source)
         {
