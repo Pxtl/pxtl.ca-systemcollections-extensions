@@ -2,6 +2,7 @@ name: Publish NuGet
 
 on:
   workflow_dispatch:
+
   workflow_run:
     workflows: ["validate-build"]
     branches: [main]
@@ -9,8 +10,7 @@ on:
 
 jobs:
   publish:
-    needs: []
-    if: github.event.workflow_run.conclusion == 'success' && github.ref == 'refs/heads/main'
+    if: github.event.workflow_run.conclusion == 'success' && github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -30,8 +30,7 @@ jobs:
         run: dotnet pack CollectionsSpecializedExtensions.slnx --configuration Release --output ./nuget
 
       - name: Publish to NuGet.org
-        uses: NuGet/nuget-publish-github-packages@v2
-        with:
-          server-url: https://api.nuget.org/v3/index.json
-          packages-dir: ./nuget
-          skip-git-check: true
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        run: |
+          dotnet nuget push nuget/*.nupkg --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate --verbosity normal
