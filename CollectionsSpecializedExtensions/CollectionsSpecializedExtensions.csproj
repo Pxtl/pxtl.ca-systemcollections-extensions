@@ -8,7 +8,7 @@
     <Nullable>enable</Nullable>
     <PackageId>Collections.Specialized.Extensions</PackageId>
 
-    <Authors>Pxtl Zarate</Authors>
+    <Authors>Martin Zarate (AKA Pxtl)</Authors>
     <Description>Specialized collection extension methods for .NET 10. Provides utility methods for NameValueCollection, sorted collections, and keyed collections.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/pxtl-clod/collections-specialized-extensions</PackageProjectUrl>
