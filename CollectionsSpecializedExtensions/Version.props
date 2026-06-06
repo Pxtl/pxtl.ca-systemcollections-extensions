@@ -1,8 +1,5 @@
 <Project>
   <PropertyGroup>
     <Version>0.1.0</Version>
-    <!-- Set to 0 for pre-release builds -->
-    <!-- Override via environment or command line: --version 1.1.0 -->
-    <!-- For CI/CD, set via GitHub Actions workflow_dispatch input -->
   </PropertyGroup>
 </Project>
