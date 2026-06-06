@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
   workflow_run:
-    workflows: ["validate-build"]
+    workflows: ["Validate"]
     branches: [main]
     types: [completed]
 
