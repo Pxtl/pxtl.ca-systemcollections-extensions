@@ -2,15 +2,6 @@ name: Publish NuGet
 
 on:
   workflow_dispatch:
-    inputs:
-      version:
-        description: 'Version number (optional)'
-        required: false
-        default: ''
-      notes:
-        description: 'Release notes (optional)'
-        required: false
-        default: ''
 
   workflow_run:
     workflows: ["validate-build"]
@@ -42,6 +33,4 @@ jobs:
         env:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
         run: |
-          if [ $? -eq 0 ]; then
-            dotnet nuget push nuget/*.nupkg --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate --verbosity normal
-          fi
+          dotnet nuget push nuget/*.nupkg --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate --verbosity normal
