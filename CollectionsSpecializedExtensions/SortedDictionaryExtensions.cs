@@ -98,10 +98,11 @@ public static class SortedDictionaryExtensions
     /// <summary>
     /// Creates a new <see cref="SortedDictionary{TKey, TValue}"/> with key and value selectors.
     /// </summary>
-    /// <returns>A new <see cref="SortedDictionary{TKey, TValue}"/> with the key-selector and value-selector mapped data.</returns>
-    /// <exception cref="ArgumentNullException"/>
+    /// <param name="source">The enumerable source.</param>
     /// <param name="keySelector">A selector for keys.</param>
     /// <param name="valueSelector">A selector for values.</param>
+    /// <returns>A new <see cref="SortedDictionary{TKey, TValue}"/> with the key-selector and value-selector mapped data.</returns>
+    /// <exception cref="ArgumentNullException"/>
     public static SortedDictionary<TKey, TValue> ToSortedDictionary<TSource, TKey, TValue>(
         this IEnumerable<TSource> source,
         Func<TSource, TKey> keySelector,
@@ -125,10 +126,12 @@ public static class SortedDictionaryExtensions
     /// <summary>
     /// Creates a new <see cref="SortedDictionary{TKey, TValue}"/> with key and value selectors.
     /// </summary>
-    /// <returns>A new <see cref="SortedDictionary{TKey, TValue}"/> with the key-selector and value-selector mapped data.</returns>
-    /// <exception cref="ArgumentNullException"/>
+    /// <param name="source">The enumerable source.</param>
     /// <param name="keySelector">A selector for keys.</param>
     /// <param name="valueSelector">A selector for values.</param>
+    /// <param name="comparer">The comparer.</param>
+    /// <returns>A new <see cref="SortedDictionary{TKey, TValue}"/> with the key-selector and value-selector mapped data.</returns>
+    /// <exception cref="ArgumentNullException"/>
     public static SortedDictionary<TKey, TValue> ToSortedDictionary<TSource, TKey, TValue>(
         this IEnumerable<TSource> source,
         Func<TSource, TKey> keySelector,
