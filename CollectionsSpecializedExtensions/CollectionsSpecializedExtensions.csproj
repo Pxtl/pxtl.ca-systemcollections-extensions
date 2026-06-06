@@ -9,7 +9,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackageId>Collections.Specialized.Extensions</PackageId>
-
     <Authors>Martin Zarate (AKA Pxtl)</Authors>
     <Description>Specialized collection extension methods for .NET 10. Provides utility methods for NameValueCollection, sorted collections, and keyed collections.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -25,13 +24,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="../README.md" Pack="True" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <None Include="README.md" Visible="false">
-      <Pack>true</Pack>
-    </None>
   </ItemGroup>
 
 </Project>
