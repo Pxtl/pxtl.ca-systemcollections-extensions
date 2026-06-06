@@ -1,0 +1,37 @@
+name: Publish NuGet
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["validate-build"]
+    branches: [main]
+    types: [completed]
+
+jobs:
+  publish:
+    needs: []
+    if: github.event.workflow_run.conclusion == 'success' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            10.x
+            8.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore CollectionsSpecializedExtensions.slnx
+
+      - name: Build NuGet package
+        run: dotnet pack CollectionsSpecializedExtensions.slnx --configuration Release --output ./nuget
+
+      - name: Publish to NuGet.org
+        uses: NuGet/nuget-publish-github-packages@v2
+        with:
+          server-url: https://api.nuget.org/v3/index.json
+          packages-dir: ./nuget
+          skip-git-check: true
