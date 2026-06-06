@@ -17,7 +17,39 @@ dotnet build CollectionsSpecializedExtensions.slnx
 dotnet run --project Tests
 ```
 
-## API Reference
+## CI/CD Pipeline
+
+### Workflow Overview
+
+1. **Validate (validate-build.yaml)**: Runs on pull requests and merges to main
+   - Builds solution
+   - Runs all tests
+
+2. **Publish NuGet (publish-nuget.yaml)**: Runs when validation passes on main
+   - Dependent on validate-build.yaml success
+   - Builds and publishes to NuGet.org
+
+### NuGet Authentication
+
+To enable NuGet publishing to NuGet.org:
+
+1. Create personal access token: https://www.nuget.org/account/apikeys
+2. Add to GitHub Secrets:
+   ```bash
+   echo "NUGET_API_KEY" <<EOF
+   $TOKEN
+   EOF
+   ```
+
+3. Configure secrets on repository settings (Actions).
+
+### Manual Publish
+
+Trigger manual NuGet publish via:
+```
+https://github.com/pxtl-clod/collections-specialized-extensions/actions/workflows/publish-nuget.yaml
+```
+
 
 ### NameValueCollectionExtensions
 
