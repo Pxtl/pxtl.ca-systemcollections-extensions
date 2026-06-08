@@ -90,8 +90,7 @@ public class ISetExtensionsTests
     public void ToISet_NullFactory_Throws()
     {
         var source = new List<string>();
-        Func<HashSet<string>>? factory = null;
-        Action act = () => source.ToISet(factory);
+        Action act = () => source.ToISet((Func<HashSet<string>>?)null!);
         act.Should().Throw<ArgumentNullException>();
     }
 

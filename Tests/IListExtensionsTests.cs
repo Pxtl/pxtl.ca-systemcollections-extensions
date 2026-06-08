@@ -55,8 +55,7 @@ public class IListExtensionsTests
     public void ToIList_NullFactory_Throws()
     {
         var source = new List<string>();
-        Func<CustomTestArrayList<string>>? factory = null;
-        Action act = () => source.ToIList(factory);
+        Action act = () => source.ToIList((Func<CustomTestArrayList<string>>?)null!);
         act.Should().Throw<ArgumentNullException>();
     }
 

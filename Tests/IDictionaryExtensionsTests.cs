@@ -76,8 +76,7 @@ public class IDictionaryExtensionsTests
     public void ToIDictionary_ThrowsOnNullFactory()
     {
         var source = new KeyValuePair<string, int>[] { new KeyValuePair<string, int>("a", 1) };
-        Func<CustomTestListDictionary<string, int>>? factory = null;
-        Action act = () => source.ToIDictionary(factory);
+        Action act = () => source.ToIDictionary((Func<CustomTestListDictionary<string, int>>?)null!);
         act.Should().Throw<ArgumentNullException>();
     }
 
