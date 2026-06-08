@@ -1,43 +1,47 @@
 using CollectionsSpecializedExtensions.Tests.Model;
+using FluentAssertions;
+using Xunit;
+
 namespace CollectionsSpecializedExtensions.Tests;
 
 public class IDictionaryExtensionsTests
 {
     [Fact]
-    public void CreatesDictionary_FromKeyValuePair()
+    public void ToIDictionary_CreatesDictionary_FromKeyValuePair()
     {
         var collection = new[] {
             new KeyValuePair<string, int>("a", 1),
             new KeyValuePair<string, int>("b", 2)
         }.ToIDictionary(() => new CustomTestListDictionary<string, int>());
 
-        Assert.IsType<CustomTestListDictionary<string, int>>(collection);
-        Assert.Equal(2, collection.Count);
-        Assert.Equal(1, collection["a"]);
+        collection.Should().BeOfType<CustomTestListDictionary<string, int>>();
+        collection.Count.Should().Be(2);
+        collection["a"].Should().Be(1);
     }
 
     [Fact]
-    public void CreatesDictionary_FromTupleSequence()
+    public void ToIDictionary_CreatesDictionary_FromTupleSequence()
     {
         var collection = new[] { ("a", 1), ("b", 2) }.ToIDictionary(() => new CustomTestListDictionary<string, int>());
-        Assert.IsType<CustomTestListDictionary<string, int>>(collection);
-        Assert.Equal(2, collection.Count);
+        
+        collection.Should().BeOfType<CustomTestListDictionary<string, int>>();
+        collection.Count.Should().Be(2);
     }
 
     [Fact]
-    public void ReturnsFactoryFunctionResult()
+    public void ToIDictionary_ReturnsFactoryFunctionResult()
     {
         var actualInstance = new CustomTestListDictionary<string, int>();
         var collection = new[] {
             new KeyValuePair<string, int>("a", 1)
         }.ToIDictionary(() => actualInstance);
 
-        Assert.IsType<CustomTestListDictionary<string, int>>(collection);
-        Assert.Same(actualInstance, collection);
+        collection.Should().BeOfType<CustomTestListDictionary<string, int>>();
+        collection.Should().BeSameAs(actualInstance);
     }
 
     [Fact]
-    public void CreatesDictionary_WithObjectGraph()
+    public void ToIDictionary_CreatesDictionary_WithObjectGraph()
     {
         var collection = new[] {
             new { Name = "Alice", Score = 100 },
@@ -47,64 +51,67 @@ public class IDictionaryExtensionsTests
             x => x.Name,
             x => x.Score);
 
-        Assert.IsType<CustomTestListDictionary<string, int>>(collection);
-        Assert.Equal(2, collection.Count);
-        Assert.Equal(100, collection["Alice"]);
+        collection.Should().BeOfType<CustomTestListDictionary<string, int>>();
+        collection.Count.Should().Be(2);
+        collection["Alice"].Should().Be(100);
     }
 
     [Fact]
-    public void ThrowsOnNullSource_WithTupleSource()
+    public void ToIDictionary_ThrowsOnNullSource_WithTupleSource()
     {
         IEnumerable<(string, int)>? source = null;
-        Assert.Throws<ArgumentNullException>(() => source!.ToIDictionary(() => new CustomTestListDictionary<string, int>()));
+        Action act = () => source!.ToIDictionary(() => new CustomTestListDictionary<string, int>());
+        act.Should().Throw<ArgumentNullException>();
     }
 
     [Fact]
-    public void ThrowsOnNullSource_WithKeyValuePairSource()
+    public void ToIDictionary_ThrowsOnNullSource_WithKeyValuePairSource()
     {
         IEnumerable<KeyValuePair<string, int>>? source = null;
-        Assert.Throws<ArgumentNullException>(() => source!.ToIDictionary(() => new CustomTestListDictionary<string, int>()));
+        Action act = () => source!.ToIDictionary(() => new CustomTestListDictionary<string, int>());
+        act.Should().Throw<ArgumentNullException>();
     }
 
     [Fact]
-    public void ThrowsOnNullFactory()
+    public void ToIDictionary_ThrowsOnNullFactory()
     {
         var source = new KeyValuePair<string, int>[] { new KeyValuePair<string, int>("a", 1) };
         Func<CustomTestListDictionary<string, int>>? factory = null;
-        Assert.Throws<ArgumentNullException>(() => source.ToIDictionary(factory!));
+        Action act = () => source.ToIDictionary(factory);
+        act.Should().Throw<ArgumentNullException>();
     }
 
-
     [Fact]
-    public void ThrowsOnNullKeySelector()
+    public void ToIDictionary_ThrowsOnNullKeySelector()
     {
         var source = new [] {
             new KeyValuePair<string, int>("a", 1)
         };
-
+        
         Func<KeyValuePair<string, int>, string>? keySelector = null;
-
-        Assert.Throws<ArgumentNullException>(() =>
+        Action act = () =>
             source.ToIDictionary(
                 () => new CustomTestListDictionary<string, int>(),
                 keySelector!,
-                x => x.Value));
+                x => x.Value);
+        
+        act.Should().Throw<ArgumentNullException>();
     }
 
     [Fact]
-    public void ThrowsOnNullValueSelector()
+    public void ToIDictionary_ThrowsOnNullValueSelector()
     {
         var source = new [] {
             new KeyValuePair<string, int>("a", 1)
         };
-
+        
         Func<KeyValuePair<string, int>, int>? valueSelector = null;
-
-        Assert.Throws<ArgumentNullException>(() =>
+        Action act = () =>
             source.ToIDictionary(
                 () => new CustomTestListDictionary<string, int>(),
                 x => x.Key,
-                valueSelector!));
+                valueSelector!);
+        
+        act.Should().Throw<ArgumentNullException>();
     }
 }
-
