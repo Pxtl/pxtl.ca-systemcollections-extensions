@@ -1,6 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 
-namespace CollectionsSpecializedExtensions.Tests.Model;
+namespace PxtlCa.SystemCollectionsExtensions.Tests.Model;
 
 /// <summary>
 /// Example custom IDictionary for testing purposes

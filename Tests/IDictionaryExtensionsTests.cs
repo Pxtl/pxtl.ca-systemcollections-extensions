@@ -1,8 +1,8 @@
-using CollectionsSpecializedExtensions.Tests.Model;
+using PxtlCa.SystemCollectionsExtensions.Tests.Model;
 using FluentAssertions;
 using Xunit;
 
-namespace CollectionsSpecializedExtensions.Tests;
+namespace PxtlCa.SystemCollectionsExtensions.Tests;
 
 public class IDictionaryExtensionsTests {
     [Fact]

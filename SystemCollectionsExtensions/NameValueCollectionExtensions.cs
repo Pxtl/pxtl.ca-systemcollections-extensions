@@ -1,4 +1,4 @@
-namespace CollectionsSpecializedExtensions;
+namespace PxtlCa.SystemCollectionsExtensions;
 
 using System.Collections;
 

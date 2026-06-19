@@ -1,4 +1,4 @@
-namespace CollectionsSpecializedExtensions;
+namespace PxtlCa.SystemCollectionsExtensions;
 
 /// <summary>
 /// Extension methods for <see cref="IDictionary{TKey,TValue}"/>.

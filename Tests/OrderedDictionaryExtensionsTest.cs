@@ -5,7 +5,7 @@ using System.Linq;
 using FluentAssertions;
 using Xunit;
 
-namespace CollectionsSpecializedExtensions.Tests;
+namespace PxtlCa.SystemCollectionsExtensions.Tests;
 
 public class OrderedDictExtensionsTests {
     [Fact]

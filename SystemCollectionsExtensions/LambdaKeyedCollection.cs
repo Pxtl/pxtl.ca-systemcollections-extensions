@@ -1,4 +1,4 @@
-namespace CollectionsSpecializedExtensions;
+namespace PxtlCa.SystemCollectionsExtensions;
 
 /// <summary>
 /// Represents a <see cref="KeyedCollection{TKey,TItem}"/> with a lambda key selector.

@@ -8,7 +8,7 @@
     <Packagedoc>README.md</Packagedoc>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <PackageId>Collections.Specialized.Extensions</PackageId>
+    <PackageId>PxtlCa.SystemCollectionsExtensions</PackageId>
     <Authors>Martin Zarate (AKA Pxtl)</Authors>
     <Description>
       Specialized collection extension methods for .NET 10. Provides utility methods for NameValueCollection,

@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="SystemCollectionsExtensions/PxtlCa.SystemCollectionsExtensions.csproj" />
+  <Project Path="Tests/PxtlCa.SystemCollectionsExtensions.Tests.csproj" />
+</Solution>

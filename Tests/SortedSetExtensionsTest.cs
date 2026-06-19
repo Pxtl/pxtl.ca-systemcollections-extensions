@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using FluentAssertions;
 using Xunit;
 
-namespace CollectionsSpecializedExtensions.Tests;
+namespace PxtlCa.SystemCollectionsExtensions.Tests;
 
 public class SortedSetExtensionsTests {
     [Fact]

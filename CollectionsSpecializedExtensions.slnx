@@ -1,4 +1,0 @@
-<Solution>
-  <Project Path="CollectionsSpecializedExtensions/CollectionsSpecializedExtensions.csproj" />
-  <Project Path="Tests/CollectionsSpecializedExtensions.Tests.csproj" />
-</Solution>

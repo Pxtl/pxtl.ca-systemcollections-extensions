@@ -21,10 +21,10 @@ jobs:
             8.0.x
 
       - name: Restore dependencies
-        run: dotnet restore CollectionsSpecializedExtensions.slnx
+        run: dotnet restore PxtlCa.SystemCollectionsExtensions.slnx
 
       - name: Build solution
-        run: dotnet build CollectionsSpecializedExtensions.slnx --no-restore --configuration Release
+        run: dotnet build PxtlCa.SystemCollectionsExtensions.slnx --no-restore --configuration Release
 
       - name: Run tests
-        run: dotnet test CollectionsSpecializedExtensions.slnx --no-build --configuration Release --verbosity normal
+        run: dotnet test PxtlCa.SystemCollectionsExtensions.slnx --no-build --configuration Release --verbosity normal

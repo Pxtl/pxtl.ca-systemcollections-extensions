@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace CollectionsSpecializedExtensions.Tests.Model;
+namespace PxtlCa.SystemCollectionsExtensions.Tests.Model;
 
 /// <summary>
 /// Example custom IList for testing purposes. Implements IList<T> interface.

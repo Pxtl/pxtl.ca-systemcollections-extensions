@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace CollectionsSpecializedExtensions.Tests.Model;
+namespace PxtlCa.SystemCollectionsExtensions.Tests.Model;
 
 /// <summary>
 /// Example custom ISet for testing purposes. Implements ISet<T> interface.

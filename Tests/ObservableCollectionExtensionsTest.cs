@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using FluentAssertions;
 using Xunit;
 
-namespace CollectionsSpecializedExtensions.Tests;
+namespace PxtlCa.SystemCollectionsExtensions.Tests;
 
 public class ObservableCollectionExtensionsTests {
     [Fact]
