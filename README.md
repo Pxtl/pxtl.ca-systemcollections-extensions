@@ -1,11 +1,11 @@
-# Collections.Specialized.Extensions
+# PxtlCa.SystemCollectionsExtensions
 
 Specialized collection extension methods for .NET 10.
 
 ## Installation
 
 ```bash
-dotnet add package Collections.Specialized.Extensions
+dotnet add package PxtlCa.SystemCollectionsExtensions
 ```
 
 ## Features

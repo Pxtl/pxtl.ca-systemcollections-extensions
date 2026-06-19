@@ -15,7 +15,7 @@
       sorted collections, generic collection interfaces, and keyed collections.
     </Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/pxtl-clod/collections-specialized-extensions</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/Pxtl/pxtl.ca-systemcollections-extensions</PackageProjectUrl>
     <RepositoryUrl>$(PackageProjectUrl)</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>net10 collections extensions specialized NameValueCollection keyed</PackageTags>
